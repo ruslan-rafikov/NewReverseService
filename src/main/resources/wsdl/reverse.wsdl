@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?><wsdl:definitions xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns:sch="http://www.example.org/reverse-service" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:tns="http://www.example.org/reverse-service/definitions" targetNamespace="http://www.example.org/reverse-service/definitions">
+  <wsdl:types>
+    <xs:schema xmlns:tns="http://www.example.org/reverse-service" xmlns:xs="http://www.w3.org/2001/XMLSchema" elementFormDefault="qualified" targetNamespace="http://www.example.org/reverse-service">
+
+	<xs:element name="ReverseStringRequest">
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element name="inputString" type="xs:string"/>
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+
+	<xs:element name="ReverseStringResponse">
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element name="reversedString" type="xs:string"/>
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+
+</xs:schema>
+  </wsdl:types>
+  <wsdl:message name="ReverseStringResponse">
+    <wsdl:part element="sch:ReverseStringResponse" name="ReverseStringResponse">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="ReverseStringRequest">
+    <wsdl:part element="sch:ReverseStringRequest" name="ReverseStringRequest">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:portType name="ReverseService">
+    <wsdl:operation name="ReverseString">
+      <wsdl:input message="tns:ReverseStringRequest" name="ReverseStringRequest">
+    </wsdl:input>
+      <wsdl:output message="tns:ReverseStringResponse" name="ReverseStringResponse">
+    </wsdl:output>
+    </wsdl:operation>
+  </wsdl:portType>
+  <wsdl:binding name="ReverseServiceSoap11" type="tns:ReverseService">
+    <soap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http"/>
+    <wsdl:operation name="ReverseString">
+      <soap:operation soapAction=""/>
+      <wsdl:input name="ReverseStringRequest">
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output name="ReverseStringResponse">
+        <soap:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:service name="ReverseServiceService">
+    <wsdl:port binding="tns:ReverseServiceSoap11" name="ReverseServiceSoap11">
+      <soap:address location="http://localhost:8080/reverseService/"/>
+    </wsdl:port>
+  </wsdl:service>
+</wsdl:definitions>
